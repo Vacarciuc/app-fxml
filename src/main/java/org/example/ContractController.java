@@ -17,7 +17,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
-
+    //the connection with fxml is made with the controller
 public class ContractController {
     int indexOfSellElement=0;
     @FXML
@@ -41,7 +41,7 @@ public class ContractController {
 //    @FXML
 //    private TableView firstNameColumn, lastNameColumn, addressColumn, speedColumn, bandwidthColumn, durationColumn;
 
-    //create observable list for choiseBox
+    //create observable list for choiseBox, when working with tables it is recommended to use observableList/Set/Map
     ObservableList observableListChoiseBox=FXCollections.observableArrayList();
 
     @FXML
@@ -53,10 +53,10 @@ public class ContractController {
 
     }
 
+    //The initialize method is called after all @FXML annotated members have been injected.
     @FXML
     private void initialize(){
         contract=new Contract();
-
         firstName.textProperty().bindBidirectional(contract.firstNameProperty());
         lastName.textProperty().bindBidirectional(contract.lastNameProperty());
         address.textProperty().bindBidirectional(contract.addressProperty());
@@ -79,7 +79,7 @@ public class ContractController {
         stringChoiceBox.getItems().addAll(observableListChoiseBox);
     }
 
-    //
+    //save contract caled with button
     @FXML
     private void saveContract(){
         if (contract.isValid()){
@@ -91,6 +91,7 @@ public class ContractController {
             viewTable();
             clearField();
         }else {
+            //for saving memory, and not creating new objects we used stringBuilder
             StringBuilder errorMsg=new StringBuilder();
             ArrayList<String>errorList=contract.errorsProperty().get();
             for (String errorsList:errorList){
@@ -105,10 +106,13 @@ public class ContractController {
         }
     }
 
+    //I changed the button with a typical btn, with an image in the background
     @FXML
     private void closeForm(){
         Platform.exit();
     }
+
+    //after saving the object I release textField
     @FXML
     private void clearField(){
         contract.firstNameProperty().set("");
@@ -119,6 +123,8 @@ public class ContractController {
         contract.durationProperty().set("");
         System.out.println("clear success");
     }
+
+    //get list of all object and iterate it
     private void viewTable (){
         ObservableList<Contract> contractObservableList = FXCollections.observableArrayList();
         List<Contract>viewContract=contract.getContractList();
@@ -134,6 +140,8 @@ public class ContractController {
         }
         contractTable.setItems(contractObservableList);
     }
+
+    //deleting a entity by selecting them from the table
     @FXML
     private void deleteItem(){
         Contract contractViewTable=contractTable.getSelectionModel().getSelectedItem();
@@ -169,6 +177,7 @@ public class ContractController {
         viewTable();
     }
 
+    //...
     @FXML
     private void updateItem() throws IOException {
         Contract contractViewTable=contractTable.getSelectionModel().getSelectedItem();

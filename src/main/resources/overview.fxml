@@ -39,32 +39,27 @@
             <TextField fx:id="duration" GridPane.columnIndex="1" GridPane.rowIndex="7" />
             <ChoiceBox fx:id="stringChoiceBox" GridPane.columnIndex="1" GridPane.rowIndex="8" prefWidth="150.0" />
 
-            <HBox alignment="TOP_RIGHT" GridPane.columnIndex="1" GridPane.rowIndex="9">
+            <GridPane alignment="TOP_RIGHT" hgap="10" vgap="5" GridPane.columnIndex="1" GridPane.rowIndex="9">
                 <children>
-                    <Button fx:id="saveBtn" mnemonicParsing="true" onAction="#saveContract" text="_save" />
-                    <Button fx:id="clearBtn" mnemonicParsing="true" onAction="#clearField" text="_clear" />
+                    <Button fx:id="saveBtn" mnemonicParsing="true" onAction="#saveContract" text="_save" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+                    <Button fx:id="clearBtn" mnemonicParsing="true" onAction="#clearField" text="_clear" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
                 </children>
-            </HBox>
+            </GridPane>
         </children>
     </GridPane>
 
-    <Separator layoutX="40.0" layoutY="30.0" orientation="VERTICAL" prefHeight="600.0" prefWidth="5.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+    <Separator layoutX="40.0" layoutY="30.0" orientation="VERTICAL" prefHeight="460.0" prefWidth="5.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
 
     <GridPane alignment="TOP_RIGHT" hgap="5" vgap="5" GridPane.columnIndex="2" GridPane.rowIndex="1">
         <padding>
             <Insets bottom="15" left="15" right="15" top="15" />
         </padding>
         <children>
-            <Text text="Table" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="1">
-                <font>
-                    <Font size="30" />
-                </font>
-            </Text>
             <TableView fx:id="contractTable" editable="true" minHeight="450" minWidth="710" prefHeight="234.0" prefWidth="393.0" tableMenuButtonVisible="true">
                 <columns>
                     <TableColumn fx:id="firstNameColumn" prefWidth="100.0" text="First Name" />
                     <TableColumn fx:id="lastNameColumn" prefWidth="100.0" text="Last Name" />
-                    <TableColumn fx:id="addressColumn" prefWidth="150.0" text="Address" />
+                    <TableColumn fx:id="addressColumn" prefWidth="250.0" text="Address" />
                     <TableColumn fx:id="speedColumn" prefWidth="80.0" text="Speed (mb/s)" />
                     <TableColumn fx:id="bandwidthColumn" prefWidth="70.0" text="Bandwidth" />
                     <TableColumn fx:id="durationColumn" prefWidth="70.0" text="Duration" />
@@ -77,11 +72,6 @@
             <Insets bottom="15" left="15" right="15" top="15" />
         </padding>
         <children>
-            <Text text="Command" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="1">
-                <font>
-                    <Font size="30" />
-                </font>
-            </Text>
             <Button fx:id="deleteBtn" mnemonicParsing="true" onAction="#deleteItem" text="_delete" GridPane.columnIndex="0" GridPane.rowIndex="0" />
             <Button fx:id="updateBtn" mnemonicParsing="true" onAction="#updateItem" text="_update" GridPane.columnIndex="1" GridPane.rowIndex="0" />
         </children>

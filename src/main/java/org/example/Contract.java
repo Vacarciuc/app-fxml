@@ -5,6 +5,8 @@ import javafx.beans.property.*;
 import java.util.ArrayList;
 import java.util.List;
 
+
+//create entity
 public class Contract {
     private final StringProperty firstName=new SimpleStringProperty(this, "firstName", "");
     private final StringProperty lastName=new SimpleStringProperty(this, "lastName", "");
@@ -110,10 +112,9 @@ public class Contract {
         this.duration.set(duration);
     }
 
-    //
+    //general list, (parent list)
     List<Contract> contractList=new ArrayList<Contract>();
     //create set and get
-
     public List<Contract> getContractList() {
         return contractList;
     }
@@ -121,41 +122,42 @@ public class Contract {
     public void setContractList(List<Contract> contractList) {
         this.contractList = contractList;
     }
-    //////////
 
+    //Create a list for errors, and get alert pop up
     private final ObjectProperty<ArrayList<String>>errorList=new SimpleObjectProperty<>(this, "errorList", new ArrayList<>());
     public ObjectProperty<ArrayList<String>>errorsProperty(){return errorList;}
 
+    //validate all textField, is better for the validation to be in the entity class
     public boolean isValid(){
         boolean isValid=true;
 
         if (firstName.get() !=null && firstName.get().equals("")){
-            errorList.getValue().add("First name can't be empty!");
+            errorList.getValue().add("First name can't be empty!\n");
             isValid=false;
         }
         if (lastName.get().equals("")){
-            errorList.getValue().add("Last name can't be empty!");
+            errorList.getValue().add("Last name can't be empty!\n");
             isValid=false;
         }
         if (address.get().equals("")){
-            errorList.getValue().add("Address can't be empty!");
+            errorList.getValue().add("Address can't be empty!\n");
             isValid=false;
         }
         if (speed.equals("")){
-            errorList.getValue().add("Speed can't be empty!");
+            errorList.getValue().add("Speed can't be empty!\n");
             isValid=false;
         }
         if (bandwidth.get().equals("")){
-            errorList.getValue().add("Bandwidth can't be empty!");
+            errorList.getValue().add("Bandwidth can't be empty!\n");
             isValid=false;
         }
         if (duration.get().equals("")){
-            errorList.getValue().add("Duration can't be empty!");
+            errorList.getValue().add("Duration can't be empty!\n");
             isValid=false;
         }
         return isValid;
     }
-
+    //if we pars validate, ve save a entity
     public boolean save(){
         if (isValid()){
             ModelForList modelForList=new ModelForList();

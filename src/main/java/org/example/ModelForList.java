@@ -1,5 +1,5 @@
 package org.example;
-
+    //I created an object to model an object
 public class ModelForList extends Contract {
     private String firstName;
     private String lastName;
