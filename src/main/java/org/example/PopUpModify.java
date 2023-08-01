@@ -18,6 +18,6 @@ public class PopUpModify {
 
     @FXML
     private void closePopUpModify(){
-
+        System.out.println("testMessage");
     }
 }
