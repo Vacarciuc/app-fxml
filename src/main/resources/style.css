@@ -1,0 +1,34 @@
+.root{
+    -fx-background-color: #373435;
+}
+.label{
+    -fx-text-fill:white;
+}
+.text-field{
+    -fx-background-color: transparent;
+    -fx-border-color: #FFFFFF;
+    -fx-text-fill: white;
+}
+.text-field:hover, .text-field:focused{
+    -fx-border-color: #75606F;
+}
+#saveBtn, #clearBtn{
+    -fx-background-color: transparent;
+    -fx-border-color: #FFFFFF;
+    -fx-text-fill: white;
+}
+#saveBtn:hover, #clearBtn:hover{
+    -fx-border-color: #75606F;
+}
+#saveBtn:pressed, #clearBtn:pressed{
+    -fx-border-color: #75606F;
+    -fx-background-color: #75606F;
+}
+#closeBtn{
+    -fx-graphic: url('hover.png');
+    -fx-background-color:transparent;
+    -fx-border-width:0.0;
+}
+#closeBtn:hover{
+    -fx-graphic: url('close.png');
+}
