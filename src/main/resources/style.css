@@ -106,3 +106,6 @@
 .combo-box.center-aligned>.list-cell {
     -fx-alignment: center;
 }
+.radio-button{
+    -fx-text-fill:white;
+}

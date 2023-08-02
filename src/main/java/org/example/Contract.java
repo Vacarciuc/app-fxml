@@ -15,6 +15,8 @@ public class Contract {
     private final StringProperty bandwidth=new SimpleStringProperty(this, "bandwidth", "");
     private final StringProperty duration=new SimpleStringProperty(this, "duration", "");
 
+    ///////radio button
+    private final StringProperty radioButtonDuration = new SimpleStringProperty(this, "radioButtonDuration", "");
 
 
 
@@ -112,6 +114,9 @@ public class Contract {
         this.duration.set(duration);
     }
 
+
+
+
     //general list, (parent list)
     List<Contract> contractList=new ArrayList<Contract>();
     //create set and get
@@ -147,11 +152,11 @@ public class Contract {
             errorList.getValue().add("Speed can't be empty!\n");
             isValid=false;
         }
-        if (bandwidth.get().equals("")){
+        if (bandwidth.equals("")){
             errorList.getValue().add("Bandwidth can't be empty!\n");
             isValid=false;
         }
-        if (duration.get().equals("")){
+        if (duration.equals("")){
             errorList.getValue().add("Duration can't be empty!\n");
             isValid=false;
         }
@@ -168,8 +173,6 @@ public class Contract {
             modelForList.setBandwidth(getBandwidth());
             modelForList.setDuration(getDuration());
             contractList.add(modelForList);
-            System.out.println(getSpeed());
-            System.out.println(contractList);
             return true;
         }
         return true;
