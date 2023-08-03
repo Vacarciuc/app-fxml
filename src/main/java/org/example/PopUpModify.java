@@ -4,10 +4,7 @@ package org.example;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Group;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.RadioButton;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -29,8 +26,17 @@ public class PopUpModify {
         RadioButton radioButtonDurationY1=new RadioButton();
         RadioButton radioButtonDurationY2=new RadioButton();
         Group group=new Group(radioButtonDurationY1, radioButtonDurationY2);
-        VBox vBox=new VBox(textFieldFirstName, textFieldLastName, textFieldAddress, choiceBoxSpeed, choiceBoxBand, group);
-        Scene scene = new Scene(new Group(vBox), 500, 300);
+        //
+        GridPane gridPane=new GridPane();
+        gridPane.setHgap(10);
+        gridPane.setVgap(5);
+
+        gridPane.addRow(0,new Label("First Name: "), textFieldFirstName);
+        gridPane.addRow(1, new Label("Last Name: "), textFieldLastName);
+        gridPane.addRow(2, new Label("Address"), textFieldAddress);
+        gridPane.addRow(3, new ChoiceBox<String>(), choiceBoxSpeed);
+        //VBox vBox=new VBox(textFieldFirstName, textFieldLastName, textFieldAddress, choiceBoxSpeed, choiceBoxBand, group);
+        Scene scene = new Scene(new Group(gridPane), 500, 300);
         scene.setFill(null);
         stage.setScene(scene);
         stage.initStyle(StageStyle.UNDECORATED);

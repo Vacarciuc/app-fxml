@@ -87,7 +87,6 @@ public class ContractController {
         observableListChoiceBoxBand.addAll(b1, b2, b3, b4, b5);
         stringChoiceBoxBand.getItems().addAll(observableListChoiceBoxBand);
     }
-    //radio button
 
 
     //save contract caled with button
@@ -137,6 +136,10 @@ public class ContractController {
         contract.speedProperty().set("");
         contract.bandwidthProperty().set("");
         contract.durationProperty().set("");
+        stringChoiceBoxSped.setValue(" ");
+        stringChoiceBoxBand.setValue(" ");
+        r1.setSelected(false);
+        r2.setSelected(false);
         System.out.println("clear success");
     }
 
@@ -189,7 +192,7 @@ public class ContractController {
             }
         }catch (Exception exception){
             exception.getMessage();
-            Alert alert=new Alert(Alert.AlertType.ERROR);
+            Alert alert=new Alert(Alert.AlertType.WARNING);
             alert.setTitle("Alert delete contract!");
             alert.setHeaderText(null);
             alert.setContentText("Please select item from table!");
@@ -222,10 +225,26 @@ public class ContractController {
         Contract contractModify=new Contract();
         contractModify=contractList.get(indexOfSellElement);
         System.out.println(contractModify);
+        //get selected object to main overview
+        contract.setFirstName(contractList.get(indexOfSellElement).getFirstName());
+        contract.setLastName(contractList.get(indexOfSellElement).getLastName());
+        contract.setAddress(contractList.get(indexOfSellElement).getAddress());
+        stringChoiceBoxSped.setValue(contractList.get(indexOfSellElement).getSpeed());
+        stringChoiceBoxBand.setValue(contractList.get(indexOfSellElement).getBandwidth());
+        String b=contractList.get(indexOfSellElement).getDuration();
+        if (b.equals("1")){
+            r1.setSelected(true);
+        } else if (b.equals("2")) {
+            r2.setSelected(true);
+        }
+        ObservableList<Contract>contractObservableListModify=FXCollections.observableArrayList();
+        for (Contract c1:contractList){
+            contractObservableListModify.add(c1);
+        }
         //test
         //todo
-        PopUpModify popUpModify=new PopUpModify();
-        popUpModify.popUp();
+//        PopUpModify popUpModify=new PopUpModify();
+//        popUpModify.popUp();
     }
 
 }
