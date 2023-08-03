@@ -9,9 +9,10 @@ import javafx.scene.control.*;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-    //the connection with fxml is made with the controller
+
+//the connection with fxml is made with the controller
 public class ContractController {
-    int indexOfSellElement=0;
+    int indexOfSellElement=-1;
     @FXML
     private ChoiceBox<String>stringChoiceBoxSped;
     @FXML
@@ -161,28 +162,39 @@ public class ContractController {
     private void deleteItem(){
         Contract contractViewTable=contractTable.getSelectionModel().getSelectedItem();
         List<Contract>contractList=contract.getContractList();
-        ModelForList contractModel=new ModelForList();
-        contractModel.setFirstName(contractViewTable.getFirstName());
-        contractModel.setLastName(contractViewTable.getLastName());
-        contractModel.setAddress(contractViewTable.getAddress());
-        contractModel.setSpeed(contractViewTable.getSpeed());
-        contractModel.setBandwidth(contractViewTable.getBandwidth());
-        contractModel.setDuration(contractViewTable.getDuration());
-        //equals method and hasCode metode not work, we have two different objects but they have the same content
-        for (Contract c1:contractList){
-                if (c1.getFirstName().equals(contractModel.getFirstName())&&
-                        c1.getLastName().equals(contractModel.getLastName())&&
-                        c1.getAddress().equals(contractModel.getAddress())&&
-                        c1.getSpeed().equals(contractModel.getSpeed())&&
-                        c1.getBandwidth().equals(contractModel.getBandwidth())&&
-                        c1.getDuration().equals(contractModel.getDuration())){
-                    //we can't delete or write a element at the time of iteration;
-                    indexOfSellElement=contractList.indexOf(c1);
+        try {
+            if (!contractViewTable.equals("")) {
+                ModelForList contractModel = new ModelForList();
+                contractModel.setFirstName(contractViewTable.getFirstName());
+                contractModel.setLastName(contractViewTable.getLastName());
+                contractModel.setAddress(contractViewTable.getAddress());
+                contractModel.setSpeed(contractViewTable.getSpeed());
+                contractModel.setBandwidth(contractViewTable.getBandwidth());
+                contractModel.setDuration(contractViewTable.getDuration());
+                //equals method and hasCode metode not work, we have two different objects but they have the same content
+                for (Contract c1 : contractList) {
+                    if (c1.getFirstName().equals(contractModel.getFirstName()) &&
+                            c1.getLastName().equals(contractModel.getLastName()) &&
+                            c1.getAddress().equals(contractModel.getAddress()) &&
+                            c1.getSpeed().equals(contractModel.getSpeed()) &&
+                            c1.getBandwidth().equals(contractModel.getBandwidth()) &&
+                            c1.getDuration().equals(contractModel.getDuration())) {
+                        //we can't delete or write a element at the time of iteration;
+                        indexOfSellElement = contractList.indexOf(c1);
+                    }
                 }
+                contractList.remove(indexOfSellElement);
+                contract.setContractList(contractList);
+                viewTable();
             }
-        contractList.remove(indexOfSellElement);
-        contract.setContractList(contractList);
-        viewTable();
+        }catch (Exception exception){
+            exception.getMessage();
+            Alert alert=new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Alert delete contract!");
+            alert.setHeaderText(null);
+            alert.setContentText("Please select item from table!");
+            alert.show();
+        }
     }
 
     //...
@@ -210,12 +222,10 @@ public class ContractController {
         Contract contractModify=new Contract();
         contractModify=contractList.get(indexOfSellElement);
         System.out.println(contractModify);
-        ///
-//        Popup popup = new Popup();
-//        PopUpModify controller = new PopUpModify();
-//        FXMLLoader loader = new FXMLLoader(getClass().getResource("popUpModify.fxml"));
-//        loader.setController(controller);
-//        popup.getContent().add((Parent)loader.load());
+        //test
+        //todo
+        PopUpModify popUpModify=new PopUpModify();
+        popUpModify.popUp();
     }
 
 }

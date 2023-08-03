@@ -22,13 +22,14 @@ public class App extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-        URL url=getClass().getClassLoader().getResource("overview.fxml");
-        GridPane gridPane=FXMLLoader.load(url);
-        Scene scene=new Scene(gridPane, 1000, 600);
+        URL url = getClass().getClassLoader().getResource("overview.fxml");
+        GridPane gridPane = FXMLLoader.load(url);
+        Scene scene = new Scene(gridPane, 1000, 600);
         stage.initStyle(StageStyle.UNDECORATED);
         scene.getStylesheets().add("style.css");
         stage.setScene(scene);
         stage.show();
+
 
         scene.setOnMousePressed(new EventHandler<MouseEvent>() {
             @Override
