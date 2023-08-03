@@ -15,6 +15,34 @@ import java.net.URL;
 
 /**
  * JavaFX App
+ * Trebuie creat un formular pentru înregistrarea vânzării pachetului de internet. Pachetul de internet conţine câţiva parametri, şi anume:
+ *
+ * viteza;
+ * traficul de date;
+ * durata contractului;
+ * numărul de identificare unic;
+ * prenumele şi numele utilizatorului;
+ * adresa utilizatorului.
+ *
+ * Viteza de internet poate fi de 2, 5, 10, 20, 50 şi 100 Mbit/s.
+ *
+ * Traficul de date poate fi de 1, 5, 10, 100 GB sau Flat.
+ *
+ * Durata contractului poate fi de unul sau doi ani.
+ *
+ * Prenumele, numele şi adresa utilizatorului se introduc.
+ *
+ * Trebuie asigurată o evidenţă a creării contractelor şi pachetelor vândute, care trebuie să conţină următoarele:
+ *
+ * revizuirea tuturor pachetelor vândute;
+ * adăugarea noilor vânzări realizate;
+ * ştergerea vânzărilor existente.
+ *
+ * Aplicația poate fi realizată într-o singură fereastră sau în ferestre separate.
+ *
+ * Se recomandă utilizarea şablonului MVC şi FXML, însă acestea nu sunt obligatorii. Pentru modelul de domeniu, trebuie creată clasa separată, care va reprezenta pachetul de internet.
+ *
+ * Este de preferat să stilizați aplicaţia, utilizând CSS.
  */
 public class App extends Application {
 

@@ -1,14 +1,18 @@
 package org.example;
 
 import javafx.application.Platform;
+import javafx.beans.InvalidationListener;
+import javafx.beans.property.ListProperty;
 import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.TextFieldTableCell;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 //the connection with fxml is made with the controller
 public class ContractController {
@@ -34,8 +38,11 @@ public class ContractController {
     //radio button
     @FXML
     private String radioButtonDuration = "";
-    @FXML private RadioButton r1;
-    @FXML private RadioButton r2;
+    @FXML
+    private RadioButton r1;
+    @FXML
+    private RadioButton r2;
+
 
 
 
@@ -57,6 +64,7 @@ public class ContractController {
     //The initialize method is called after all @FXML annotated members have been injected.
     @FXML
     private void initialize(){
+        //contractTable.setEditable(true);
         contract=new Contract();
         firstName.textProperty().bindBidirectional(contract.firstNameProperty());
         lastName.textProperty().bindBidirectional(contract.lastNameProperty());
@@ -65,14 +73,66 @@ public class ContractController {
         //bandwidth.textProperty().bindBidirectional(contract.bandwidthProperty());
         //duration.textProperty().bindBidirectional(contract.durationProperty());
         firstNameColumn.setCellValueFactory(contractStringCellDataFeatures -> contractStringCellDataFeatures.getValue().firstNameProperty());
+        firstNameColumn.setCellFactory(TextFieldTableCell.forTableColumn());
+        firstNameColumn.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Contract, String>>() {
+            @Override
+            public void handle(TableColumn.CellEditEvent<Contract, String> contractStringCellEditEvent) {
+                Contract contract= contractStringCellEditEvent.getRowValue();
+                contract.setFirstName(contractStringCellEditEvent.getNewValue());
+            }
+        });
         lastNameColumn.setCellValueFactory(contractStringCellDataFeatures -> contractStringCellDataFeatures.getValue().lastNameProperty());
+        lastNameColumn.setCellFactory(TextFieldTableCell.forTableColumn());
+        lastNameColumn.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Contract, String>>() {
+            @Override
+            public void handle(TableColumn.CellEditEvent<Contract, String> contractStringCellEditEvent) {
+                Contract contract= contractStringCellEditEvent.getRowValue();
+                contract.setLastName(contractStringCellEditEvent.getNewValue());
+            }
+        });
         addressColumn.setCellValueFactory(contractStringCellDataFeatures -> contractStringCellDataFeatures.getValue().addressProperty());
+        addressColumn.setCellFactory(TextFieldTableCell.forTableColumn());
+        addressColumn.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Contract, String>>() {
+            @Override
+            public void handle(TableColumn.CellEditEvent<Contract, String> contractStringCellEditEvent) {
+                Contract contract= contractStringCellEditEvent.getRowValue();
+                contract.setAddress(contractStringCellEditEvent.getNewValue());
+            }
+        });
         speedColumn.setCellValueFactory(contractStringCellDataFeatures -> contractStringCellDataFeatures.getValue().speedProperty());
+        speedColumn.setCellFactory(TextFieldTableCell.forTableColumn());
+        speedColumn.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Contract, String>>() {
+            @Override
+            public void handle(TableColumn.CellEditEvent<Contract, String> contractStringCellEditEvent) {
+                Contract contract= contractStringCellEditEvent.getRowValue();
+                contract.setSpeed(contractStringCellEditEvent.getNewValue());
+            }
+        });
         bandwidthColumn.setCellValueFactory(contractStringCellDataFeatures -> contractStringCellDataFeatures.getValue().bandwidthProperty());
+        bandwidthColumn.setCellFactory(TextFieldTableCell.forTableColumn());
+        bandwidthColumn.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Contract, String>>() {
+            @Override
+            public void handle(TableColumn.CellEditEvent<Contract, String> contractStringCellEditEvent) {
+                Contract contract= contractStringCellEditEvent.getRowValue();
+                contract.setBandwidth(contractStringCellEditEvent.getNewValue());
+            }
+        });
         durationColumn.setCellValueFactory(contractStringCellDataFeatures -> contractStringCellDataFeatures.getValue().durationProperty());
+        durationColumn.setCellFactory(TextFieldTableCell.forTableColumn());
+        durationColumn.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Contract, String>>() {
+            @Override
+            public void handle(TableColumn.CellEditEvent<Contract, String> contractStringCellEditEvent) {
+                Contract contract= contractStringCellEditEvent.getRowValue();
+                contract.setDuration(contractStringCellEditEvent.getNewValue());
+            }
+        });
         loadDataSpeed();
         loadDataBand();
+
+//        contractTable.setEditable(true);
+//        contractTable.getSelectionModel().setCellSelectionEnabled(true);
     }
+
     //choise box, for speed menu;
     private void loadDataSpeed(){
         observableListChoiceBoxSpeed.removeAll(observableListChoiceBoxSpeed);
@@ -205,41 +265,50 @@ public class ContractController {
     private void updateItem() throws IOException {
         Contract contractViewTable=contractTable.getSelectionModel().getSelectedItem();
         List<Contract>contractList=contract.getContractList();
-        ModelForList contractModel=new ModelForList();
-        contractModel.setFirstName(contractViewTable.getFirstName());
-        contractModel.setLastName(contractViewTable.getLastName());
-        contractModel.setAddress(contractViewTable.getAddress());
-        contractModel.setSpeed(contractViewTable.getSpeed());
-        contractModel.setBandwidth(contractViewTable.getBandwidth());
-        contractModel.setDuration(contractViewTable.getDuration());
-        for (Contract c1:contractList){
-            if (c1.getFirstName().equals(contractModel.getFirstName())&&
-                    c1.getLastName().equals(contractModel.getLastName())&&
-                    c1.getAddress().equals(contractModel.getAddress())&&
-                    c1.getSpeed().equals(contractModel.getSpeed())&&
-                    c1.getBandwidth().equals(contractModel.getBandwidth())&&
-                    c1.getDuration().equals(contractModel.getDuration())){
-                indexOfSellElement=contractList.indexOf(c1);
+        try {
+            ModelForList contractModel = new ModelForList();
+            contractModel.setFirstName(contractViewTable.getFirstName());
+            contractModel.setLastName(contractViewTable.getLastName());
+            contractModel.setAddress(contractViewTable.getAddress());
+            contractModel.setSpeed(contractViewTable.getSpeed());
+            contractModel.setBandwidth(contractViewTable.getBandwidth());
+            contractModel.setDuration(contractViewTable.getDuration());
+            for (Contract c1 : contractList) {
+                if (c1.getFirstName().equals(contractModel.getFirstName()) &&
+                        c1.getLastName().equals(contractModel.getLastName()) &&
+                        c1.getAddress().equals(contractModel.getAddress()) &&
+                        c1.getSpeed().equals(contractModel.getSpeed()) &&
+                        c1.getBandwidth().equals(contractModel.getBandwidth()) &&
+                        c1.getDuration().equals(contractModel.getDuration())) {
+                    indexOfSellElement = contractList.indexOf(c1);
+                }
             }
-        }
-        Contract contractModify=new Contract();
-        contractModify=contractList.get(indexOfSellElement);
-        System.out.println(contractModify);
-        //get selected object to main overview
-        contract.setFirstName(contractList.get(indexOfSellElement).getFirstName());
-        contract.setLastName(contractList.get(indexOfSellElement).getLastName());
-        contract.setAddress(contractList.get(indexOfSellElement).getAddress());
-        stringChoiceBoxSped.setValue(contractList.get(indexOfSellElement).getSpeed());
-        stringChoiceBoxBand.setValue(contractList.get(indexOfSellElement).getBandwidth());
-        String b=contractList.get(indexOfSellElement).getDuration();
-        if (b.equals("1")){
-            r1.setSelected(true);
-        } else if (b.equals("2")) {
-            r2.setSelected(true);
-        }
-        ObservableList<Contract>contractObservableListModify=FXCollections.observableArrayList();
-        for (Contract c1:contractList){
-            contractObservableListModify.add(c1);
+            Contract contractModify = new Contract();
+            contractModify = contractList.get(indexOfSellElement);
+            System.out.println(contractModify);
+            //get selected object to main overview
+            contract.setFirstName(contractList.get(indexOfSellElement).getFirstName());
+            contract.setLastName(contractList.get(indexOfSellElement).getLastName());
+            contract.setAddress(contractList.get(indexOfSellElement).getAddress());
+            stringChoiceBoxSped.setValue(contractList.get(indexOfSellElement).getSpeed());
+            stringChoiceBoxBand.setValue(contractList.get(indexOfSellElement).getBandwidth());
+            String b = contractList.get(indexOfSellElement).getDuration();
+            if (b.equals("1")) {
+                r1.setSelected(true);
+            } else if (b.equals("2")) {
+                r2.setSelected(true);
+            }
+            List<Contract> contractObservableListModify = new ArrayList<>();
+            for (Contract c1 : contractList) {
+                contractObservableListModify.add(c1);
+            }
+        }catch (Exception e){
+            e.getMessage();
+            Alert alert=new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Alert delete contract!");
+            alert.setHeaderText(null);
+            alert.setContentText("Please select item from table!");
+            alert.show();
         }
         //test
         //todo
